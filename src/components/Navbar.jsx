@@ -1,12 +1,45 @@
-import React from 'react'
+import React, { useState } from 'react'
+
+const navLinks = [
+  { href: "#", label: "Falcon 9", aria: "Falcon 9 vehicle page" },
+  { href: "#", label: "Falcon Heavy", aria: "Falcon Heavy vehicle page" },
+  { href: "#", label: "Dragon", aria: "Dragon spacecraft page" },
+  { href: "#", label: "Starship", aria: "Starship vehicle page" },
+  { href: "#", label: "Human Spaceflight", aria: "Human Spaceflight page" },
+  { href: "#", label: "Rideshare", aria: "Rideshare program page" },
+  { href: "#", label: "Starshield", aria: "Starshield program page" },
+  { href: "https://www.starlink.com", label: "Starlink", aria: "Starlink website", external: true },
+];
+
+const shopLink = {
+  href: "https://shop.spacex.com/",
+  label: "Shop",
+  aria: "SpaceX shop page",
+  external: true,
+};
 
 const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
-    <>
-      <div className="section">
-        <div className="fixed top-0 left-0 z-[100] w-full h-[100px] bg-black flex items-center text-white">
-          <a href="#" id="logo" aria-label="SpaceX Homepage" className="ml-6 left-[100px] grid grid-cols-2">
-            <svg version="1.1" x="0px" y="0px" viewBox="0 0 400 50" aria-hidden="true" className="h-12 col-span-2">
+    <nav className="section">
+      <div className="fixed top-0 left-0 z-[100] w-full bg-black text-white">
+        <div className="flex items-center justify-between h-20 px-4 md:px-8 lg:px-16 relative">
+          {/* Logo */}
+          <a
+            href="#"
+            id="logo"
+            aria-label="SpaceX Homepage"
+            className="flex items-center"
+          >
+            <svg
+              version="1.1"
+              x="0px"
+              y="0px"
+              viewBox="0 0 400 50"
+              aria-hidden="true"
+              className="h-10 md:h-12"
+            >
               <title>SpaceX Logo</title>
               <g className="letter_s">
                 <path className="fill-white" d="M37.5,30.5H10.9v-6.6h34.3c-0.9-2.8-3.8-5.4-8.9-5.4H11.4c-5.7,0-9,2.1-9,6.7v4.9c0,4,3.4,6.3,8.4,6.3h26.9v7H1.5
@@ -36,167 +69,98 @@ const Navbar = () => {
               </g>
             </svg>
           </a>
-          <div className="navigation absolute left-[500px] flex items-center h-full ">
-            <ul className="nav-links flex list-none m-0 p-0 ">
-              <li className="nav-item mx-[12px]">
-                <a
-                  href="#"
-                  aria-label="Falcon 9 vehicle page"
-                  className="uppercase text-sm tracking-wide font-medium hover:text-gray-400 transition-colors duration-200"
-                >
-                  Falcon 9
-                </a>
-              </li>
-              <li className="nav-item mx-[12px]">
-                <a
-                  href="#"
-                  aria-label="Falcon Heavy vehicle page"
-                  className="uppercase text-sm tracking-wide font-medium hover:text-gray-400 transition-colors duration-200"
-                >
-                  Falcon Heavy
-                </a>
-              </li>
-              <li className="nav-item mx-[12px]">
-                <a
-                  href="#"
-                  aria-label="Dragon spacecraft page"
-                  className="uppercase text-sm tracking-wide font-medium hover:text-gray-400 transition-colors duration-200"
-                >
-                  Dragon
-                </a>
-              </li>
-              <li className="nav-item mx-[12px]">
-                <a
-                  href="#"
-                  aria-label="Starship vehicle page"
-                  className="uppercase text-sm tracking-wide font-medium hover:text-gray-400 transition-colors duration-200"
-                >
-                  Starship
-                </a>
-              </li>
-              <li className="nav-item mx-[12px]">
-                <a
-                  href="#"
-                  aria-label="Human Spaceflight page"
-                  className="uppercase text-sm tracking-wide font-medium hover:text-gray-400 transition-colors duration-200"
-                >
-                  Human Spaceflight
-                </a>
-              </li>
-              <li className="nav-item mx-[12px]">
-                <a
-                  href="#"
-                  aria-label="Rideshare program page"
-                  className="uppercase text-sm tracking-wide font-medium hover:text-gray-400 transition-colors duration-200"
-                >
-                  Rideshare
-                </a>
-              </li>
-              <li className="nav-item mx-[12px]">
-                <a
-                  href="#"
-                  aria-label="Starshield program page"
-                  className="uppercase text-sm tracking-wide font-medium hover:text-gray-400 transition-colors duration-200"
-                >
-                  Starshield
-                </a>
-              </li>
-              <li className="nav-item mx-[12px]">
-                <a
-                  href="https://www.starlink.com"
-                  aria-label="Starlink website"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="uppercase text-sm tracking-wide font-medium hover:text-gray-400 transition-colors duration-200"
-                >
-                  Starlink
-                </a>
-              </li>
+          {/* Desktop Nav */}
+          <div className="hidden lg:flex flex-1 items-center justify-center">
+            <ul className="flex space-x-4 xl:space-x-6">
+              {navLinks.map((link, idx) => (
+                <li key={link.label} className="nav-item">
+                  <a
+                    href={link.href}
+                    aria-label={link.aria}
+                    target={link.external ? "_blank" : undefined}
+                    rel={link.external ? "noopener noreferrer" : undefined}
+                    className="uppercase text-xs xl:text-sm tracking-wide font-medium hover:text-gray-400 transition-colors duration-200"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
+          {/* Desktop Shop Link */}
+          <div className="hidden lg:flex items-center">
+            <a
+              href={shopLink.href}
+              rel="noopener"
+              aria-label={shopLink.aria}
+              target="_blank"
+              className="uppercase text-xs xl:text-sm tracking-wide font-medium hover:text-gray-400 transition-colors duration-200 text-white ml-6"
+            >
+              {shopLink.label}
+            </a>
+          </div>
+          {/* Hamburger Button */}
+          <button
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            aria-label="Menu"
+            role="button"
+            aria-haspopup="dialog"
+            className="flex flex-col justify-center items-center w-10 h-10 bg-transparent border-none cursor-pointer focus:outline-none lg:hidden z-[110]"
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <div
+              id="bar1"
+              className={`w-8 h-1 bg-white my-1 transition-all duration-300 rounded ${menuOpen ? "rotate-45 translate-y-2" : ""}`}
+            ></div>
+            <div
+              id="bar2"
+              className={`w-8 h-1 bg-white my-1 transition-all duration-300 rounded ${menuOpen ? "opacity-0" : ""}`}
+            ></div>
+            <div
+              id="bar3"
+              className={`w-8 h-1 bg-white my-1 transition-all duration-300 rounded ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`}
+            ></div>
+          </button>
         </div>
-        <div className="inner-right absolute top-[75px] right-[50px] w-[250px]">
-          <ul className="nav-links relative list-none m-0 p-0">
-            <li className="nav-item relative inline-block mx-[12px]">
+        {/* Mobile Menu */}
+        <div
+          id="mobile-menu"
+          className={`fixed inset-0 bg-black bg-opacity-95 z-[105] flex flex-col items-center justify-start pt-28 transition-all duration-300 lg:hidden ${
+            menuOpen ? "visible opacity-100" : "invisible opacity-0 pointer-events-none"
+          }`}
+        >
+          <ul className="flex flex-col space-y-6 w-full items-center">
+            {navLinks.map((link) => (
+              <li key={link.label} className="nav-item w-full text-center">
+                <a
+                  href={link.href}
+                  aria-label={link.aria}
+                  target={link.external ? "_blank" : undefined}
+                  rel={link.external ? "noopener noreferrer" : undefined}
+                  className="uppercase text-lg tracking-wide font-medium hover:text-gray-400 transition-colors duration-200 block py-2"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+            <li className="nav-item w-full text-center">
               <a
-                href="https://shop.spacex.com/"
+                href={shopLink.href}
                 rel="noopener"
-                aria-label="SpaceX shop page"
+                aria-label={shopLink.aria}
                 target="_blank"
-                className="uppercase text-sm tracking-wide font-medium hover:text-gray-400 transition-colors duration-200 text-white"
+                className="uppercase text-lg tracking-wide font-medium hover:text-gray-400 transition-colors duration-200 text-white block py-2"
+                onClick={() => setMenuOpen(false)}
               >
-                Shop
+                {shopLink.label}
               </a>
             </li>
           </ul>
         </div>
-        <div className="menu fixed top-0 right-0 h-full z-[12]">
-          <div
-            id="menu-background"
-            className="block w-full h-[120%] bg-black origin-top-left"
-            style={{ WebkitTransformOrigin: 'left top', transformOrigin: 'left top' }}
-          ></div>
-          <div
-            id="menu-navigation"
-            style={{ opacity: 0, visibility: 'hidden' }}
-          >
-            <ul className="nav-links relative list-none m-0 p-0">
-              <li className="nav-item primary hidden opacity-0 invisible m-0 text-right" style={{ transform: "translate(0px, 0px)" }}>
-                <a href="/vehicles/falcon-9/" aria-label="Falcon 9 vehicle page">Falcon 9</a>
-              </li>
-              <li className="nav-item primary hidden opacity-0 invisible m-0 text-right" style={{ transform: "translate(0px, 0px)" }}>
-                <a href="/vehicles/falcon-heavy/" aria-label="Falcon Heavy vehicle page">Falcon Heavy</a>
-              </li>
-              <li className="nav-item primary hidden opacity-0 invisible m-0 text-right" style={{ transform: "translate(0px, 0px)" }}>
-                <a href="/vehicles/dragon/" aria-label="Dragon spacecraft page">Dragon</a>
-              </li>
-              <li className="nav-item primary hidden opacity-0 invisible m-0 text-right" style={{ transform: "translate(0px, 0px)" }}>
-                <a href="/vehicles/starship/" aria-label="Starship vehicle page">Starship</a>
-              </li>
-              <li className="nav-item primary hidden opacity-0 invisible m-0 text-right" style={{ transform: "translate(0px, 0px)" }}>
-                <a href="/humanspaceflight/" aria-label="Human Spaceflight page">Human Spaceflight</a>
-              </li>
-              <li className="nav-item primary hidden opacity-0 invisible m-0 text-right" style={{ transform: "translate(0px, 0px)" }}>
-                <a href="/rideshare/" aria-label="Rideshare program page">Rideshare</a>
-              </li>
-              <li className="nav-item primary hidden opacity-0 invisible m-0 text-right" style={{ transform: "translate(0px, 0px)" }}>
-                <a href="/starshield/" aria-label="Starshield program page">Starshield</a>
-              </li>
-              <li className="nav-item primary hidden opacity-0 invisible m-0 text-right" style={{ transform: "translate(0px, 0px)" }}>
-                <a href="https://www.starlink.com" aria-label="Starlink website" target="_blank" rel="noopener noreferrer">Starlink</a>
-              </li>
-              <li className="nav-item secondary" style={{ display: "block", margin: 0, textAlign: "right", opacity: 0, visibility: "hidden", transform: "translate3d(0px, 0.0463px, 0px)" }}>
-                <a href="/mission/" aria-label="SpaceX mission page">Mission</a>
-              </li>
-              <li className="nav-item secondary" style={{ display: "block", margin: 0, textAlign: "right", opacity: 0, visibility: "hidden", transform: "translate3d(0px, 0.0655px, 0px)" }}>
-                <a href="/launches/" aria-label="SpaceX launches page">Launches</a>
-              </li>
-              <li className="nav-item secondary" style={{ display: "block", margin: 0, textAlign: "right", opacity: 0, visibility: "hidden", transform: "translate3d(0px, 0.0926px, 0px)" }}>
-                <a href="/careers/" aria-label="SpaceX careers page">Careers</a>
-              </li>
-              <li className="nav-item secondary" style={{ display: "block", margin: 0, textAlign: "right", opacity: 0, visibility: "hidden", transform: "translate3d(0px, 0.1309px, 0px)" }}>
-                <a href="/updates/" aria-label="SpaceX updates page">Updates</a>
-              </li>
-              <li className="nav-item secondary" style={{ display: "block", margin: 0, textAlign: "right", opacity: 0, visibility: "hidden", transform: "translate3d(0px, 0.1852px, 0px)" }}>
-                <a href="https://shop.spacex.com/" rel="noopener" aria-label="SpaceX shop page" target="_blank">Shop</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <button
-          aria-expanded="false"
-          aria-controls="menu"
-          aria-label="Menu"
-          role="button"
-          aria-haspopup="dialog"
-          className="flex flex-col justify-center items-center w-10 h-10 bg-transparent border-none cursor-pointer focus:outline-none"
-        >
-          <div id="bar1" className="w-8 h-1 bg-white my-1 transition-all duration-300 rounded"></div>
-          <div id="bar2" className="w-8 h-1 bg-white my-1 transition-all duration-300 rounded"></div>
-          <div id="bar3" className="w-8 h-1 bg-white my-1 transition-all duration-300 rounded"></div>
-        </button>
       </div>
-    </>
+    </nav>
   )
 }
 
